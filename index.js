@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors  = require('cors');
 const connectDB = require('./config/db');  // MongoDB connection
 const chatbotRoutes = require('./routes/chatbotRoutes');
+
 
 // Load environment variables
 dotenv.config();
@@ -10,7 +12,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
+app.use(cors());
 // Middleware to parse JSON
 app.use(express.json());
 
