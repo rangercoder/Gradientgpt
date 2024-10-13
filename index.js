@@ -24,12 +24,10 @@ app.use('/api/users', userRoutes);  // User creation route
 app.use('/api/chat', chatRoutes);  // Chatbot query route
 app.use('/api/admin', adminRoutes);  // Admin view route
 
+
 // Handle undefined routes
 app.use((req, res, next) => {
   res.status(404).json({ message: 'API route not found' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
