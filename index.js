@@ -29,4 +29,12 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'API route not found' });
 });
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
+if (process.env.NODE_ENV !== 'production') {
+  const server = app.listen(0, () => {  // '0' tells Node.js to assign a random available port
+    const port = server.address().port;
+    console.log(`Server running locally on port ${port}`);
+  });
+} else {
+  // In production (Vercel), the port is automatically managed by Vercel
+  module.exports = app;  // Export the app for Vercel
+}
