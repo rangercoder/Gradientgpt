@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors  = require('cors');
 const connectDB = require('./config/db');  // MongoDB connection
 const chatbotRoutes = require('./routes/chatbotRoutes');
+const savedConversationRoutes = require('./routes/savedConversationRoutes');
 
 
 // Load environment variables
@@ -18,15 +19,14 @@ app.use(express.json());
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');  // User creation route
-const chatRoutes = require('./routes/chatRoutes');  // Chatbot query routes
 const adminRoutes = require('./routes/adminRoutes');  // Admin view route
 const testRoutes = require('./routes/testRoutes');
 app.use('/api/chat', chatbotRoutes);
 // Use routes
 app.use('/api/users', userRoutes);  // User creation route
-app.use('/api/chat', chatRoutes);  // Chatbot query route
 app.use('/api/admin', adminRoutes);  // Admin view route
 app.use('/api/test', testRoutes);
+app.use('/api/savedConversations', savedConversationRoutes);  
 
 // Handle undefined routes
 app.use((req, res, next) => {
