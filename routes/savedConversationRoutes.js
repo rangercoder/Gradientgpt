@@ -1,5 +1,6 @@
 const express = require('express');
 const SavedConversation = require('../models/SavedConversation');
+const mongoose = require('mongoose');  // Import mongoose
 const router = express.Router();
 
 // Save or update a conversation (POST /api/savedConversations/save)
@@ -36,5 +37,28 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch conversations' });
   }
 });
+
+router.get('/:userId', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      // Validate userId is a valid ObjectId
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ error: 'Invalid User ID' });
+      }
+  
+      // Find all conversations where the userId matches the given userId
+      const userConversations = await SavedConversation.find({ userId });
+  
+      if (userConversations.length === 0) {
+        return res.status(404).json({ message: 'No conversations found for this user' });
+      }
+  
+      res.status(200).json(userConversations);
+    } catch (error) {
+      console.error('Error fetching conversations:', error.message);
+      res.status(500).json({ error: 'Failed to fetch conversations' });
+    }
+  });
 
 module.exports = router;
