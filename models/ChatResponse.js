@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ChatResponseSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },  // Reference to User model
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },  
   userQuery: { type: String, required: true },
   apiResponse: {
     summary: String,

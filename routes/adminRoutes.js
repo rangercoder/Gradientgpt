@@ -9,10 +9,10 @@ router.get('/users', async (req, res) => {
     // Fetch all users
     const users = await User.find().select('-__v');
 
-    // Fetch saved conversations, populate user details, and sort by userId
+    
     const userSavedChats = await SavedConversation.find()
-      .populate('userId', 'username')  // Populate username from User collection
-      .sort({ userId: 1 });  // Sort by userId in ascending order
+      .populate('userId', 'username')  
+      .sort({ userId: 1 });  
 
     res.status(200).json({ users, userSavedChats });
   } catch (error) {

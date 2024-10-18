@@ -2,15 +2,15 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 
-// Create a new user (POST /api/users)
+
 router.post('/', async (req, res) => {
   const { username, email } = req.body;
 
-  // Log the received values
+  
   console.log('Username:', username);
   console.log('Email:', email);
 
-  // Check if username and email are provided
+ 
   if (!username || !email) {
     return res.status(400).json({ error: 'Username and email are required' });
   }

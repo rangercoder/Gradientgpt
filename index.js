@@ -1,34 +1,34 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors  = require('cors');
-const connectDB = require('./config/db');  // MongoDB connection
+const connectDB = require('./config/db');  
 const chatbotRoutes = require('./routes/chatbotRoutes');
 const savedConversationRoutes = require('./routes/savedConversationRoutes');
 
 
-// Load environment variables
+
 dotenv.config();
 
-// Connect to MongoDB
+
 connectDB();
 
 const app = express();
 app.use(cors());
-// Middleware to parse JSON
+
 app.use(express.json());
 
-// Import routes
-const userRoutes = require('./routes/userRoutes');  // User creation route
-const adminRoutes = require('./routes/adminRoutes');  // Admin view route
+
+const userRoutes = require('./routes/userRoutes'); 
+const adminRoutes = require('./routes/adminRoutes');  
 const testRoutes = require('./routes/testRoutes');
 app.use('/api/chat', chatbotRoutes);
-// Use routes
-app.use('/api/users', userRoutes);  // User creation route
-app.use('/api/admin', adminRoutes);  // Admin view route
+
+app.use('/api/users', userRoutes);  
+app.use('/api/admin', adminRoutes);  
 app.use('/api/test', testRoutes);
 app.use('/api/savedConversations', savedConversationRoutes);  
 
-// Handle undefined routes
+
 app.use((req, res, next) => {
   res.status(404).json({ message: 'API route not found' });
 });
